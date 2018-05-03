@@ -1,6 +1,6 @@
 {
     "name": "nativescript-wikitude",
-    "version": "1.0.0",
+    "version": "7.2.1-1.8.0",
     "description": "Your awesome NativeScript plugin.",
     "main": "wikitude",
     "typings": "index.d.ts",
