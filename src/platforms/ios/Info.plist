@@ -3,5 +3,11 @@
 <plist version="1.0">
 <dict>
 	<!--Describe the permissions, features or other configurations required by your plugin for iOS.-->
+	<key>NSCameraUsageDescription</key>
+	<string>Requires access to camera to show the AR Experience.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Requires access to location services.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Requires access to photo library.</string>
 </dict>
 </plist>
