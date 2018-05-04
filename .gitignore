@@ -27,3 +27,12 @@ src/platforms/ios/WikitudeSDK.framework/**
 
 **/*.tgz
 **/*.zip
+
+#demo-ng
+
+demo-ng/platforms
+demo-ng/hooks
+demo-ng/report
+demo-ng/**/*.js
+
+!demo-ng/app/wikitude/**/*
