@@ -24,3 +24,6 @@ demo/report/report.html
 demo/report/stats.json
 
 src/platforms/ios/WikitudeSDK.framework/**
+
+**/*.tgz
+**/*.zip
