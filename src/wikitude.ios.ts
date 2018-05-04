@@ -1,5 +1,3 @@
-/// <reference path="./references.d.ts"/>
-
 import { Common, LicenseProperty, UrlProperty, FeaturesProperty, IWikitudeFunctions } from './wikitude.common';
 import { on as AddEventListener, off as RemoveEventListener, suspendEvent, resumeEvent, lowMemoryEvent } from 'tns-core-modules/application';
 import { knownFolders } from 'tns-core-modules/file-system/file-system';

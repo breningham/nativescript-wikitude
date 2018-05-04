@@ -7,3 +7,7 @@ platforms/android/*
 !platforms/android/include.gradle
 !platforms/android/*.aar
 !platforms/android/*.jar
+
+wikitude.ios.d.ts
+wikitude.android.d.ts
+wikitude.common.d.ts
