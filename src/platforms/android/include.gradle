@@ -5,7 +5,7 @@ android {
 }
 
 dependencies {
-	def supportVer = project.hasProperty("supportVersion" ? supportVersion : "22.2.0";
+	def supportVer = project.hasProperty("supportVersion") ? supportVersion : "22.2.0";
 	
 	compile "com.android.support:appcompat-v7:$supportVer"
 }

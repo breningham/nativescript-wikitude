@@ -9,7 +9,7 @@ android {
   defaultConfig {  
     minSdkVersion 19
     generatedDensities = []
-    applicationId = "org.nativescript.demong"  
+    applicationId = "org.nativescript.wikitude.demong"  
   }  
   aaptOptions {  
     additionalParameters "--no-version-vectors"  
