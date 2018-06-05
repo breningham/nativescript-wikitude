@@ -1,13 +1,13 @@
 {
     "name": "nativescript-wikitude",
-    "version": "7.2.1-1.8.0",
+    "version": "7.2.1-1.8.1",
     "description": "Your awesome NativeScript plugin.",
     "main": "wikitude",
     "typings": "index.d.ts",
     "nativescript": {
         "platforms": {
-            "android": "4.0.0",
-            "ios": "4.0.0"
+            "android": "4.1.0",
+            "ios": "4.1.0"
         }
     },
     "scripts": {
@@ -51,6 +51,7 @@
     "homepage": "https://github.com/breningham/nativescript-wikitude",
     "readmeFilename": "README.md",
     "devDependencies": {
+        "@angular/cli": "^6.0.7",
         "extract-zip": "^1.6.6",
         "fs-extra": "^6.0.0",
         "prompt": "^1.0.0",

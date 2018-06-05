@@ -15,162 +15,159 @@ import { knownFolders } from 'tns-core-modules/file-system';
 import { fromNativeSource, ImageSource } from 'tns-core-modules/image-source';
 import { ContentView } from 'tns-core-modules/ui/content-view/content-view';
 
-
-let wikitudeJsonListener,
-    wikitudeWorldLoadedListener,
-    wikitudeCameraLifecycleListener,
-    wikitudeSensorAccuracyChangeListener,
-    wikitudeCaptureScreenListener;
-
-export const registerJsonListener = (owner: Wikitude) => {
-
-    @Interfaces([ com.wikitude.architect.ArchitectJavaScriptInterfaceListener ])
+    @Interfaces([com.wikitude.architect.ArchitectJavaScriptInterfaceListener])
     class JsonObjectListener extends java.lang.Object {
-        constructor( public owner: Wikitude ) {
-            super();
 
+        private owner: WeakRef<Wikitude>;
+
+        constructor(owner: Wikitude) {
+            super();
+            this.owner = new WeakRef(owner);
             return global.__native(this);
         }
 
         onJSONObjectReceived(JsonObject: org.json.JSONObject) {
-            if ( this.owner ) {
-                this.owner.onJSONObjectReceived(JSON.parse(JsonObject as any));
+
+            const owner = this.owner.get();
+            const json = JSON.parse(<any>JsonObject);
+
+            if (owner) {
+                owner.onJSONObjectReceived(json);
             }
         }
 
     }
 
-    wikitudeJsonListener = new JsonObjectListener(owner);
-};
-
-export const registerWorldLoadedListener = (owner: Wikitude) => {
-
-    if ( wikitudeWorldLoadedListener ) {
-        return;
-    }
-
-    @Interfaces([ com.wikitude.architect.ArchitectView.ArchitectWorldLoadedListener ])
+    @Interfaces([com.wikitude.architect.ArchitectView.ArchitectWorldLoadedListener])
     class WorldLoadedListener extends java.lang.Object {
 
-        constructor(private owner: Wikitude) {
-            super();
+        private owner: WeakRef<Wikitude>;
 
+        constructor(owner: Wikitude) {
+            super();
+            this.owner = new WeakRef(owner);
             return global.__native(this);
         }
 
-        worldLoadFailed( errorCode: number, description: string, failingUrl: string ) {
-            if ( this.owner ) {
-                this.owner.log(`Error ${errorCode} while Loading URL: ${failingUrl}`);
-                this.owner.log(`Error Description is ${description}`);
+        worldLoadFailed(errorCode: number, description: string, failingUrl: string) {
 
-                this.owner.onWorldLoadFailed(failingUrl, errorCode);
+            const owner = this.owner.get();
+
+            if (owner) {
+                owner.log(`Error ${errorCode} while Loading URL: ${failingUrl}`);
+                owner.log(`Error Description is ${description}`);
+
+                owner.onWorldLoadFailed(failingUrl, errorCode);
             }
         }
 
         worldWasLoaded(url: string) {
-            if ( this.owner ) {
-                this.owner.onWorldLoadSuccess(url);
+            const owner = this.owner.get();
+
+            if (owner) {
+                owner.onWorldLoadSuccess(url);
             }
         }
 
     }
 
-    wikitudeWorldLoadedListener = new WorldLoadedListener(owner);
-
-};
-
-export const registerCameraLifecycleListener = (owner: Wikitude) => {
-
-    @Interfaces([ com.wikitude.architect.services.camera.CameraLifecycleListener ])
+    @Interfaces([com.wikitude.architect.services.camera.CameraLifecycleListener])
     class CameraLifecycleListener extends java.lang.Object {
 
-        constructor(public owner: Wikitude) {
+        private owner: WeakRef<Wikitude>;
+
+        constructor(owner: Wikitude) {
             super();
 
+            this.owner = new WeakRef(owner);
             return global.__native(this);
         }
 
         onCameraOpen(): void {
-            if ( this.owner ) {
-                this.owner.onCameraOpen();
+
+            const owner = this.owner.get();
+
+            if (owner) {
+                owner.onCameraOpen();
             }
         }
 
         onCameraOpenAbort(): void {
-            if ( this.owner ) {
-                this.owner.onCameraAborted();
+            const owner = this.owner.get();
+
+            if (owner) {
+                owner.onCameraAborted();
             }
         }
 
         onCameraReleased(): void {
-            if ( this.owner ) {
-                this.owner.onCameraClose();
+            const owner = this.owner.get();
+
+            if (owner) {
+                owner.onCameraClose();
+            } else {
+                console.log('[ERR] owner is falsy on CameraLifecycleListener Instance');
             }
         }
 
-    }
-
-    wikitudeCameraLifecycleListener = new CameraLifecycleListener(owner);
-};
-
-export const registerSensorAccuracyChangeListener = (owner: Wikitude) => {
-
-    if ( wikitudeSensorAccuracyChangeListener ) {
-        return;
     }
 
     @Interfaces([com.wikitude.architect.ArchitectView.SensorAccuracyChangeListener])
     class SensorAccuracyChangeListener extends java.lang.Object {
+        
+        private owner: WeakRef<Wikitude>;
 
-        constructor(private owner: Wikitude) {
+        constructor(owner: Wikitude) {
             super();
 
+            this.owner = new WeakRef(owner);
             return global.__native(this);
         }
 
         onCompassAccuracyChanged(accuracy: number) {
-            if ( this.owner ) {
-                this.owner.onCompassAccuracyChanged(accuracy);
+
+            const owner = this.owner.get();
+
+            if (owner) {
+                owner.onCompassAccuracyChanged(accuracy);
             }
         }
 
     }
 
-    wikitudeSensorAccuracyChangeListener = new SensorAccuracyChangeListener(owner);
-
-};
-
-export const registerCaptureScreenListener = (owner: Wikitude) => {
-
-    if ( wikitudeCaptureScreenListener ) {
-        return;
-    }
-
-    @Interfaces([ com.wikitude.architect.ArchitectView.CaptureScreenCallback ])
+    @Interfaces([com.wikitude.architect.ArchitectView.CaptureScreenCallback])
     class CaptureScreenCallback extends java.lang.Object {
 
-        constructor(private owner: Wikitude) {
+        private owner: WeakRef<Wikitude>;
+
+        constructor(owner: Wikitude) {
             super();
 
+            this.owner = new WeakRef(owner);
             return global.__native(this);
         }
 
         onScreenCaptured(bitmap: android.graphics.Bitmap) {
-            if ( this.owner ) {
-                this.owner.onScreenCaptured(bitmap);
+
+            const owner = this.owner.get();
+
+            if (owner) {
+                owner.onScreenCaptured(bitmap);
             }
         }
 
     }
-
-    wikitudeCaptureScreenListener = new CaptureScreenCallback(owner);
-
-};
 
 export class Wikitude extends Common implements IWikitudeFunctions {
 
     public hasStarted: boolean = false;
     public LocationProvider: LocationProvider<Wikitude>;
+
+    private jsonObjectListener: JsonObjectListener;
+    private worldLoadedListener: WorldLoadedListener;
+    private cameraLifecycleListener: CameraLifecycleListener;
+    private sensorAccuracyChangeListener: SensorAccuracyChangeListener;
+    private captureScreenCallBack: CaptureScreenCallback;
 
     public _android: any;
 
@@ -204,8 +201,8 @@ export class Wikitude extends Common implements IWikitudeFunctions {
         this.config = new com.wikitude.architect.ArchitectStartupConfiguration();
         this.config.setOrigin('ORIGIN_NATIVESCRIPT');
 
-        if ( this.features ) {
-            this.config.setFeatures( this.features );
+        if (this.features) {
+            this.config.setFeatures(this.features);
         } else {
             this.config.setFeatures(
                 com.wikitude.architect.ArchitectStartupConfiguration.Features.Geo
@@ -217,7 +214,7 @@ export class Wikitude extends Common implements IWikitudeFunctions {
 
 
         if (this.licenseKey) {
-            this.log( 'License key is being set: ' + this.licenseKey );
+            this.log('License key is being set: ' + this.licenseKey);
             this.config.setLicenseKey(this.licenseKey);
             this.isLicensed = true;
         }
@@ -225,11 +222,11 @@ export class Wikitude extends Common implements IWikitudeFunctions {
         // const delegate =  new WikitudeDelegate(this);
         this.LocationProvider = new LocationProvider<Wikitude>(this, 0, 0);
 
-        registerJsonListener(this);
-        registerWorldLoadedListener(this);
-        registerCameraLifecycleListener(this);
-        registerCaptureScreenListener(this);
-        registerSensorAccuracyChangeListener(this);
+        this.jsonObjectListener = this.registerJSONObjectListener();
+        this.worldLoadedListener = this.registerWorldLoadedListener();
+        this.cameraLifecycleListener = this.registerCameraLifecycleListener();
+        this.sensorAccuracyChangeListener = this.registerSensorAccuracyChangeListener();
+        this.captureScreenCallBack = this.registerCaptureScreenCallback();
 
         this._android = new com.wikitude.architect.ArchitectView(this.currentActivity);
 
@@ -242,8 +239,8 @@ export class Wikitude extends Common implements IWikitudeFunctions {
         try {
             this._android.onCreate(this.config);
 
-            this._android.registerWorldLoadedListener(wikitudeWorldLoadedListener);
-            this._android.addArchitectJavaScriptInterfaceListener(wikitudeJsonListener);
+            this._android.registerWorldLoadedListener(this.worldLoadedListener);
+            this._android.addArchitectJavaScriptInterfaceListener(this.jsonObjectListener);
             // this._android.setCameraLifecycleListener(wikitudeCameraLifecycleListener); // Issues ATM with CameraRelease...
             // this._android.registerSensorAccuracyChangeListener(wikitudeSensorAccuracyChangeListener); // Throws Errors atm...
             this._android.onPostCreate();
@@ -397,14 +394,14 @@ export class Wikitude extends Common implements IWikitudeFunctions {
     captureScreen(captureWebViewContent: boolean = false) {
         let captureMode;
 
-        if ( captureWebViewContent ) {
+        if (captureWebViewContent) {
             captureMode = com.wikitude.architect.ArchitectView.CaptureScreenCallback.CAPTURE_MODE_CAM_AND_WEBVIEW;
         } else {
             captureMode = com.wikitude.architect.ArchitectView.CaptureScreenCallback.CAPTURE_MODE_CAM;
         }
 
         try {
-            this._android.captureScreen(captureMode, wikitudeCaptureScreenListener);
+            this._android.captureScreen(captureMode, this.captureScreenCallBack);
         } catch (e) {
             this.onScreenCaptureFailed(e);
         }
@@ -446,7 +443,7 @@ export class Wikitude extends Common implements IWikitudeFunctions {
 
     [LicenseProperty.setNative](license: string) {
         this.log('LicenseKey Updated!');
-        this.log( this.isLicensed ? 'But we are already licensed so we are ignoring it!' : 'We are setting the license now!' );
+        this.log(this.isLicensed ? 'But we are already licensed so we are ignoring it!' : 'We are setting the license now!');
 
         if (!this.isLicensed && this._android) {
             this.licenseKey = license;
@@ -476,6 +473,47 @@ export class Wikitude extends Common implements IWikitudeFunctions {
         this.config.setFeatures(features);
         this.features = features;
     }
+
+    private registerJSONObjectListener() {
+        if ( this.jsonObjectListener ) {
+            return this.jsonObjectListener;
+        } else {
+            return new JsonObjectListener(this);
+        }
+    }
+
+    private registerWorldLoadedListener() {
+        if ( this.worldLoadedListener ) {
+            return this.worldLoadedListener;
+        } else {
+            return new WorldLoadedListener(this);
+        }
+    }
+
+    private registerCameraLifecycleListener() {
+        if ( this.cameraLifecycleListener ) {
+            return this.cameraLifecycleListener;
+        } else {
+            return new CameraLifecycleListener(this);
+        }
+    }
+
+    private registerSensorAccuracyChangeListener() {
+        if ( this.sensorAccuracyChangeListener ) {
+            return this.sensorAccuracyChangeListener;
+        } else {
+            return new SensorAccuracyChangeListener(this);
+        }
+    }
+
+    private registerCaptureScreenCallback() {
+        if ( this.captureScreenCallBack ) {
+            return this.captureScreenCallBack;
+        } else {
+            return new CaptureScreenCallback(this);
+        }
+    }
+
 }
 
 export class LocationProvider<Owner> {
