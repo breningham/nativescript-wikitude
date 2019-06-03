@@ -9,9 +9,10 @@ Provides nativescript access to Wikitude AR.
 Versioning is as follows ${wikitude-version}-${plugin-version}
 example : `7.2.1-1.1.0`  is Wikitude Version 7.2.1, Plugin version 1.1.0. 
 
-Core | Angular | Vue
-=====================
- Coming Soon | Coming Soon | ![nativescript-wikitude on vue](https://raw.githubusercontent.com/breningham/nativescript-wikitude/feature/vue-demo/assets/vue.png "Vue")
+## Screen shots
+| Core | Angular | Vue |
+| --- | --- | --- |
+ | <img src="https://raw.githubusercontent.com/breningham/nativescript-wikitude/feature/vue-demo/assets/core.png" alt="Wikitude on nativescript-vue" width="200"/> | <img src="https://raw.githubusercontent.com/breningham/nativescript-wikitude/feature/vue-demo/assets/angular.png" alt="Wikitude on nativescript-vue" width="200"/> |  <img src="https://raw.githubusercontent.com/breningham/nativescript-wikitude/feature/vue-demo/assets/vue.png" alt="Wikitude on nativescript-vue" width="200"/> |
 
 ## Prerequisites / Requirements
 
