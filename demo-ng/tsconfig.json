@@ -13,11 +13,10 @@
         ],
         "baseUrl": ".",
         "paths": {
-            "*": [
-                "./node_modules/tns-core-modules/*",
-                "./node_modules/*"
+            "~/*": [
+                "src/*"
             ]
-        },
+        }
     },
     "exclude": [
         "node_modules",
