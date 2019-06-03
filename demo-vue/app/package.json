@@ -1,0 +1,8 @@
+{
+  "android": {
+    "v8Flags": "--expose_gc"
+  },
+  "main": "main",
+  "name": "demo-nativescript-wikitude-vue",
+  "version": "1.0.0"
+}
