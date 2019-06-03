@@ -12,7 +12,7 @@ example : `7.2.1-1.1.0`  is Wikitude Version 7.2.1, Plugin version 1.1.0.
 ## Screen shots
 | Core | Angular | Vue |
 | --- | --- | --- |
- | <img src="https://raw.githubusercontent.com/breningham/nativescript-wikitude/feature/vue-demo/assets/core.png" alt="Coming Soon!" width="200"/> | <img src="https://raw.githubusercontent.com/breningham/nativescript-wikitude/feature/vue-demo/assets/angular.png" alt="Coming Soon!" width="200"/> |  <img src="https://raw.githubusercontent.com/breningham/nativescript-wikitude/feature/vue-demo/assets/vue.png" alt="Wikitude on nativescript-vue" width="200"/> |
+ | <img src="https://raw.githubusercontent.com/breningham/nativescript-wikitude/master/assets/core.png" alt="Coming Soon!" width="200"/> | <img src="https://raw.githubusercontent.com/breningham/nativescript-wikitude/master/assets/angular.png" alt="Coming Soon!" width="200"/> |  <img src="https://raw.githubusercontent.com/breningham/nativescript-wikitude/master/assets/vue.png" alt="Wikitude on nativescript-vue" width="200"/> |
 
 ## Prerequisites / Requirements
 
