@@ -1,12 +1,15 @@
 <Page class="page"
-    navigatingTo="onNavigatingTo" 
-    xmlns="http://schemas.nativescript.org/tns.xsd">
+    navigatingTo="onNavigatingTo"
+    loaded="onPageLoaded"
+    xmlns="http://schemas.nativescript.org/tns.xsd"
+  xmlns:wikitude="nativescript-wikitude">
     
     <ActionBar class="action-bar">
         <Label class="action-bar-title" text="Home"></Label>
     </ActionBar>
 
     <GridLayout>
+        <wikitude:Wikitude url="{{ wikitude.world }}" WorldLoadSuccess="onWorldLoadSuccess" WorldLoadFail="onWorldLoadFail"  />
         <!-- Add your page content here -->
     </GridLayout>
 </Page>
